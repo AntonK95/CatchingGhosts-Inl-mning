@@ -7,6 +7,14 @@ window.addEventListener('load', () => {
 
 
 
+
+
+
+
+
+
+
+
 /*psuedokod
 
 Globalt game data objekt{
