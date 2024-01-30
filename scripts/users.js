@@ -11,7 +11,7 @@ let users = [
     },
     {
         username: 'Isak',
-        password: 'isevenbetter'
+        password: '123'
     },
     {
         username: 'Erik',

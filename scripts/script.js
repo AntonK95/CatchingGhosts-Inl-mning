@@ -1,13 +1,82 @@
 'use strict';
 
 window.addEventListener('load', () => {
+
+    initPage();
     //Här kickar ni igång ert program
 });
 
 
 
+function initPage() {
+    users.forEach(user => { // Changed variable name to avoid confusion with array name
+        console.log(user);
+    });
+
+    const loginBtn = document.querySelector('#spela');
+    
+    loginBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (validateForm()) {
+            //toggleDisplay(3); 
+            //initContent();
+            prepGame();       
+        }
+    }); // Added missing closing parenthesis
+}
 
 
+function validateForm(){
+    console.log('validate loginform');
+
+    try{
+        const username = document.querySelector('#username')
+        const password = document.querySelector('#password')
+        //const users = getUsers();
+        let user = {}
+
+
+        if(!users.some(user => user.username === username.value)) {
+            throw {
+                'nodeRef' : username,
+                'msg' : 'Ogiltigt användarnamn'
+            }
+        } else {
+            user = users.find(user => user.username === username.value);
+
+            if(user.password !== password.value) {
+                throw {
+                    'nodeRef' : password,
+                    'msg' : 'Felaktigt lösenord'
+                }
+            }
+        }
+        const errorMsg = document.querySelector('#errorMsg');
+        errorMsg.textContent = '';
+
+        password.value = '';
+        //setUser(user.id);
+
+
+
+
+        return true;
+
+
+    } catch(error){
+        console.log(error);
+    }
+   
+};
+
+
+function prepGame(){
+    //Ta bort formulär och visa spelplan
+    document.querySelector('#formDiv').classList.add('d-none')
+    //document.querySelector('#gameArea').classList.remove('d-none')
+    console.log('formulär borttaget, visa spelplan');
+
+}
 
 
 
