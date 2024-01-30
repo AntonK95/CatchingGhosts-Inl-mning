@@ -9,6 +9,8 @@ window.addEventListener('load', () => {
 
 
 function initPage() {
+
+    document.querySelector('#gameArea').classList.add('d-none')
     users.forEach(user => { // Changed variable name to avoid confusion with array name
         console.log(user);
     });
@@ -51,10 +53,19 @@ function validateForm(){
                 }
             }
         }
+
+
+        if (!question.checked) {
+            throw {
+                'nodeRef': question,
+                'msg': 'Du måste bekräfta att du inte är rädd för spöken'
+            }
+        }
+
         const errorMsg = document.querySelector('#errorMsg');
         errorMsg.textContent = '';
 
-        password.value = '';
+        
         //setUser(user.id);
 
 
@@ -65,6 +76,12 @@ function validateForm(){
 
     } catch(error){
         console.log(error);
+
+
+        const errorMsg = document.querySelector('#errorMsg');
+        errorMsg.textContent = error.msg;
+
+        return false; // Return false if any validation fails
     }
    
 };
@@ -73,7 +90,7 @@ function validateForm(){
 function prepGame(){
     //Ta bort formulär och visa spelplan
     document.querySelector('#formDiv').classList.add('d-none')
-    //document.querySelector('#gameArea').classList.remove('d-none')
+    document.querySelector('#gameArea').classList.remove('d-none')
     console.log('formulär borttaget, visa spelplan');
 
 }
