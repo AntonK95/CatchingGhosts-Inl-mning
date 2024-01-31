@@ -91,15 +91,27 @@ function randomNumberOfGhosts(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min; 
 }
 
-/* for(!randomNumberOfGhosts > 0) {
-    isGameOver()
-}
+/* Pseudokod för att räkna aktiva spöken
+    if(randomNumberOfGhosts !== 0) {
+        kör spelet
+    } else {
+        gameOver()
+        Grattis du har fångat alla spöken!!
+        document.querySelector('#gameArea').classList.add('d-none')
+        document.querySelector('.winnerMsg').classList.remove('d-none')
+    }
 } */
 
+
+// I funtionen randomPosition() tilldelar vi x och y resultatet av Math.round(Math.random) osv 
+// för att få slumpade x och y kordinater inom fönstrets bredd och höjd.
 function randomPosition() {
     const x = Math.round(Math.random() * (window.innerWidth - 300)) +1;
     const y = Math.round(Math.random() * (window.innerHeight - 300)) +1;
-    return { left : x, top : y };
+    return { 
+                left : x,  // Vi returnerar dessa koordinater som ett objekt med
+                top : y    //'left' och 'top' egenskaper.
+            };
 }
 
 // Denna funktionen tar två argument min och max och och använder sig av randomNumberOfGhosts()
@@ -116,9 +128,13 @@ function generateGhosts(min, max) {
         ghostImg.src = '/resources/ghost.png'; // Här sätter vi sökvägen till bilden med src
         ghostImages.push(ghostImg);
         
+        // Samtidigt som vi skapar ett img element så skall varje img slumpas ut på skärmen
+        // Den position som slumpas fram i randomPosition() tilldelas de nya img elementen
+        // De nya img elementen sätter vi sedan style.left och style.top på för att komma åt den slumpade positionen
         const randomlyPositionedGhost = randomPosition();
         ghostImg.style.left = `${randomlyPositionedGhost.left}px`;
         ghostImg.style.top = `${randomlyPositionedGhost.top}px`;
+        
         console.log(numberOfGhosts);
     }
 
