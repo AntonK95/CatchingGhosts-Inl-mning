@@ -11,10 +11,3 @@ img {
 }
 
 /* Koden ovanför är obligatorisk. Ereventuella CSS skriver ni nedanför denna kommentar */
-
-
-#gameArea{
-    background-color: black;
-    height: 100vh;
-    width: 100%;
-}
