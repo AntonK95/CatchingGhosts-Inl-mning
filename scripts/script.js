@@ -3,7 +3,7 @@
 window.addEventListener('load', () => {
 
     initPage();
-    //Här kickar ni igång ert program
+    // Here we start our program
 
 });
 
@@ -21,8 +21,6 @@ function initPage() {
     loginBtn.addEventListener('click', (event) => {
         event.preventDefault();
         if (validateForm()) {
-            //toggleDisplay(3); 
-            //initContent();
             prepGame(); 
         }      
     });
@@ -35,7 +33,6 @@ function validateForm(){
     try{
         const username = document.querySelector('#username')
         const password = document.querySelector('#password')
-        //const users = getUsers();
         let user = {}
 
 
@@ -63,14 +60,8 @@ function validateForm(){
             }
         }
 
-        const errorMsg = document.querySelector('#errorMsg');
-        errorMsg.textContent = '';
-
-        
-        //setUser(user.id);
-
-
-
+        const msg = document.querySelector('#msg');
+        msg.textContent = '';
 
         return true;
 
@@ -79,8 +70,8 @@ function validateForm(){
         console.log(error);
 
 
-        const errorMsg = document.querySelector('#errorMsg');
-        errorMsg.textContent = error.msg;
+        const msg = document.querySelector('#msg');
+        msg.textContent = error.msg;
 
         return false; // Return false if any validation fails
     }
@@ -93,7 +84,7 @@ function validateForm(){
 
 
 
-// Denna funktionen slumpar fram ett heltal mellan min och max som vi sedan sätter nedan i prepGame()
+// This function generates a random integer between min and max, which is then assigned below in prepGame().
 function randomNumberOfGhosts(min, max) {
     console.log('Slumpar antal spöken');
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -103,8 +94,8 @@ function randomNumberOfGhosts(min, max) {
 
 
 
-// I funtionen randomPosition() tilldelar vi x och y resultatet av Math.round(Math.random) osv 
-// för att få slumpade x och y kordinater inom fönstrets bredd och höjd.
+// In the randomPosition() function, we assign the values of x and y the result of Math.round(Math.random) etc.
+// to obtain random x and y coordinates within the window's width and height.
 function randomPosition() {
 
     const x = oGameData.left();
@@ -119,8 +110,8 @@ function randomPosition() {
 
 
 
-// Denna funktionen tar två argument min och max och och använder sig av randomNumberOfGhosts()
-// för att få fram ett slumpat antal spöken
+// This function takes two arguments, min and max, and uses randomNumberOfGhosts()
+// to determine a random number of ghosts.
 function generateGhosts(min, max) {
     const numberOfGhosts = randomNumberOfGhosts(min, max);
 
@@ -197,7 +188,7 @@ function checkIfGameOver() {
         document.querySelector('#gameArea').innerHTML = ''; //Removes all elements within the game area so another game can be played right after with a fresh game area
         document.querySelector('#formDiv').classList.remove('d-none');
         document.querySelector('#gameArea').classList.add('d-none');
-        document.querySelector('#errorMsg').innerHTML = 'Grattis! Du vann :D :D :D'
+        document.querySelector('#msg').innerHTML = 'Grattis! Du vann :D :D :D'
         // You can add any additional game over logic here
     }
 }
@@ -208,15 +199,10 @@ function checkIfGameOver() {
 CheckIfGameOver is called inside the generateGhost function*/
 
 function prepGame(){
-    //Ta bort formulär och visa spelplan
+    // Hide formFiv and show gameArea
     document.querySelector('#formDiv').classList.add('d-none');
     document.querySelector('#gameArea').classList.remove('d-none');
     console.log('formulär borttaget, visa spelplan');
-    generateGhosts(10, 15);
-    
-    
+    generateGhosts(10, 15);  
 }
-
-
-
 
