@@ -10,8 +10,10 @@ let users = [
         password: 'isbetter'
     },
     {
-        username: 'Isak',
-        password: '123'
+        username: 'Isak',       
+        password: 'isevenbetter'
+
+
     },
     {
         username: 'Erik',
