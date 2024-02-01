@@ -87,12 +87,77 @@ function validateForm(){
 };
 
 
+
+
+
+
+// Denna funktionen slumpar fram ett heltal mellan min och max som vi sedan sätter nedan i prepGame()
+function randomNumberOfGhosts(min, max) {
+    console.log('Slumpar antal spöken');
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+    
+}
+
+
+
+// I funtionen randomPosition() tilldelar vi x och y resultatet av Math.round(Math.random) osv 
+// för att få slumpade x och y kordinater inom fönstrets bredd och höjd.
+function randomPosition() {
+    const x = oGameData.left();
+    const y = oGameData.top();
+    return { 
+                left : x,  
+                top : y    
+            };
+}
+
+
+
+
+// Denna funktionen tar två argument min och max och och använder sig av randomNumberOfGhosts()
+// för att få fram ett slumpat antal spöken
+function generateGhosts(min, max) {
+    const numberOfGhosts = randomNumberOfGhosts(min, max);
+    console.log("Number of ghosts:", numberOfGhosts); // Log number of ghosts
+    const gameArea = document.querySelector('#gameArea');
+    const ghostImages = [];
+
+    for(let i = 0; i < numberOfGhosts; i++) {
+        const ghostImg = document.createElement('img');
+        ghostImg.src = '/resources/ghost.png';
+        ghostImages.push(ghostImg);
+
+        const randomlyPositionedGhost = randomPosition();
+        ghostImg.style.left = `${randomlyPositionedGhost.left}px`;
+        ghostImg.style.top = `${randomlyPositionedGhost.top}px`;
+
+        console.log("Ghost position:", randomlyPositionedGhost); // Log ghost positions
+    }
+
+    console.log("Ghost images:", ghostImages); // Log ghost images array
+
+    ghostImages.forEach(ghostImg => {
+        gameArea.appendChild(ghostImg);
+    });
+}
+
+
+
+
+
+
+
+
+
+
 function prepGame(){
     //Ta bort formulär och visa spelplan
-    document.querySelector('#formDiv').classList.add('d-none')
-    document.querySelector('#gameArea').classList.remove('d-none')
+    document.querySelector('#formDiv').classList.add('d-none');
+    document.querySelector('#gameArea').classList.remove('d-none');
     console.log('formulär borttaget, visa spelplan');
-
+    generateGhosts(10, 15);
+    
+    
 }
 
 
