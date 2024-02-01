@@ -1,9 +1,10 @@
 'use strict';
 
 window.addEventListener('load', () => {
-    //Här kickar ni igång ert program
-    
+
     initPage();
+    //Här kickar ni igång ert program
+
 });
 
 
@@ -24,7 +25,6 @@ function initPage() {
             //initContent();
             prepGame();       
         }
-    }); 
 }
 
 
@@ -84,189 +84,138 @@ function validateForm(){
         return false; // Return false if any validation fails
     }
    
-}
+
+};
+
+
+
+
+
 
 // Denna funktionen slumpar fram ett heltal mellan min och max som vi sedan sätter nedan i prepGame()
 function randomNumberOfGhosts(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min; 
+    console.log('Slumpar antal spöken');
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+    
 }
 
-/* Pseudokod för att räkna aktiva spöken
-    if(randomNumberOfGhosts !== 0) {
-        kör spelet
-    } else {
-        gameOver()
-        Grattis du har fångat alla spöken!!
-        document.querySelector('#gameArea').classList.add('d-none')
-        document.querySelector('.winnerMsg').classList.remove('d-none')
-    }
-} */
+
 
 
 // I funtionen randomPosition() tilldelar vi x och y resultatet av Math.round(Math.random) osv 
 // för att få slumpade x och y kordinater inom fönstrets bredd och höjd.
 function randomPosition() {
-    const x = Math.round(Math.random() * (window.innerWidth - 300)) +1;
-    const y = Math.round(Math.random() * (window.innerHeight - 300)) +1;
+
+    const x = oGameData.left();
+    const y = oGameData.top();
     return { 
-                left : x,  // Vi returnerar dessa koordinater som ett objekt med
-                top : y    //'left' och 'top' egenskaper.
+                left : x,  
+                top : y    
             };
 }
+
+
+
+
 
 // Denna funktionen tar två argument min och max och och använder sig av randomNumberOfGhosts()
 // för att få fram ett slumpat antal spöken
 function generateGhosts(min, max) {
     const numberOfGhosts = randomNumberOfGhosts(min, max);
-    const gameArea = document.querySelector('#gameArea');
-    const ghostImages = []; // Tom array för att lagra spöken
 
-    // Vi använder en for loop för att så länge som i är mindre än numberOfGhosts
-    // så skapar vi ett img element som vi döper till ghostImg och pushar in ghostImg in i vår ghostImages array
+    console.log("Number of ghosts:", numberOfGhosts); // Log number of ghosts
+    const gameArea = document.querySelector('#gameArea');
+    const ghostImages = [];
+
     for(let i = 0; i < numberOfGhosts; i++) {
         const ghostImg = document.createElement('img');
-        ghostImg.src = '/resources/ghost.png'; // Här sätter vi sökvägen till bilden med src
+        ghostImg.src = '/resources/ghost.png';
         ghostImages.push(ghostImg);
-        
-        // Samtidigt som vi skapar ett img element så skall varje img slumpas ut på skärmen
-        // Den position som slumpas fram i randomPosition() tilldelas de nya img elementen
-        // De nya img elementen sätter vi sedan style.left och style.top på för att komma åt den slumpade positionen
+
         const randomlyPositionedGhost = randomPosition();
         ghostImg.style.left = `${randomlyPositionedGhost.left}px`;
         ghostImg.style.top = `${randomlyPositionedGhost.top}px`;
-        
-        console.log(numberOfGhosts);
+
+
+        // Add event listener to toggle ghost image on mouseover
+        ghostImg.addEventListener('mouseover', toggleGhostImage);
+
+
+        console.log("Ghost position:", randomlyPositionedGhost); // Log ghost positions
     }
 
-    // Här loopar vi vår ghostImages array och lägger till varje spöke i gameArea
-    ghostImages.forEach(images => {
-        gameArea.appendChild(images);
-    });
-    
+    console.log("Ghost images:", ghostImages); // Log ghost images array
 
+    ghostImages.forEach(ghostImg => {
+        gameArea.appendChild(ghostImg);
+    });
 }
 
+
+
+/*Code for changing the img source when an mouseover event is executed on any img element. 
+This will toggle the source back and forth from ghost.png to net.png each time the mouseover event is triggered*/
+
+function toggleGhostImage(event) {
+    const element = event.target;
+    console.log("Mouseover event triggered"); // Log to see if the function is being called
+    if (element.src.endsWith('ghost.png')) {
+        element.src = 'resources/net.png'; // Change to the other ghost image
+        console.log("Ghost image changed to net"); // Log to see if the image source is updated
+        checkIfGameOver();
+    } else {
+        element.src = 'resources/ghost.png'; // Change back to the original ghost image
+        console.log("Ghost image changed back to original"); // Log to see if the image source is updated
+    }
+}
+
+
+
+
+
+/*Checks if game is over. 
+Initially sets caughtGhost to 0 every time checkIfGameOver is called and increases the caughtGhost by 1 for every caughtGhost.
+In this way, caughtGhosts wont grow in value in an unintended way*/
+
+function checkIfGameOver() {
+    const ghostImages = document.querySelectorAll('#gameArea img');
+    const totalGhosts = ghostImages.length;
+    let caughtGhosts = 0;
+
+    ghostImages.forEach(ghostImg => {
+        if (ghostImg.src.endsWith('net.png')) {
+            caughtGhosts++;
+        }
+    });
+
+    console.log("Caught ghosts:", caughtGhosts); // Log the value of caughtGhosts
+
+    if (caughtGhosts === totalGhosts) {
+        console.log("Game over");
+
+        document.querySelector('#gameArea').innerHTML = ''; //Removes all elements within the game area so another game can be played right after with a fresh game area
+        document.querySelector('#formDiv').classList.remove('d-none');
+        document.querySelector('#gameArea').classList.add('d-none');
+        document.querySelector('#errorMsg').innerHTML = 'Grattis! Du vann :D :D :D'
+        // You can add any additional game over logic here
+    }
+}
+
+
+
+/*Prepares the game. Form is hidden and gamefield shown. Ghosts are generated by calling the generateGhosts function.
+CheckIfGameOver is called inside the generateGhost function*/
 
 function prepGame(){
-    //Dölj formulär och visa spelplanen
-    document.querySelector('#formDiv').classList.add('d-none')
-    document.querySelector('#gameArea').classList.remove('d-none')
+    //Ta bort formulär och visa spelplan
+    document.querySelector('#formDiv').classList.add('d-none');
+    document.querySelector('#gameArea').classList.remove('d-none');
     console.log('formulär borttaget, visa spelplan');
+    generateGhosts(10, 15);
     
-    // Här anropar vi vår funktion med argumenten 10 och 15 
-    // för att slumpa fram ett antal spöken (mellan 10 och 15) som skall visas i gameArea
-    generateGhosts(10, 15); 
-
     
 }
 
 
-/*psuedokod
-
-Globalt game data objekt{
-
-}
 
 
-
-
-Sidan laddas in:
-Inloggnings formulär. Input sparas till globala objektet.
-Try/catch för felhantering gällande user input i formuläret.
-
-
-
-If(userInput === true)
-    prepGame()
-else errorMsg
-
-
-
-
-
-
-define prepGame(){
-    display none add på formulär
-    display none add på errorMsg
-    display none remove på spelplan
-    generateGhosts()
-    gameTime()
-}
-
-
-
-
-
-
-define generateGhosts(){
-    //använd jespers kod som slumpar kordinater för img-element
-    slumpa 10-15 ghosts
-}
-
-
-
-
-
-
-
-define gameTime(){
-    if (ghost mouseover){
-        display none add på ghost
-        display none remove på spöknät (förutsatt att man har två img sources på samma element varav alltid bara ena visas vid ett tillfälle)
-    }
-
-    if (spöknät mouseover) {
-        display none add på spöknät
-        display none remove på ghost
-    }
-
-    checkIfGameOver()
-}
-
-
-
-
-
-
-define checkIfGameOver(){
-    if (livingGhosts = 0){
-        gameOver()
-    } 
-}
-
-
-
-
-
-
-define gameOver(){
-    display none add på spelplan
-    display none remove på formulär
-    display none remove på vinstMsg
-}
-
-
-
-
-
-
-
-
-
-
-
-Chatgpt hjälp:
-
-ghost/net counter and src handler
-
-function toggleGhostNet(event) {
-  const element = event.target;
-  if (element.src === "ghost-image-url") {
-    element.src = "net-image-url"; // Replace "net-image-url" with actual URL
-    gameData.livingGhosts--; // Decrease livingGhosts counter when a ghost is caught
-  } else {
-    element.src = "ghost-image-url"; // Replace "ghost-image-url" with actual URL
-    gameData.livingGhosts++; // Increase livingGhosts counter when a net is hovered over
-  }
-  checkIfGameOver();
-}*/
