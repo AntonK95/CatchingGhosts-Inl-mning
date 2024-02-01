@@ -4,6 +4,7 @@ window.addEventListener('load', () => {
 
     initPage();
     //Här kickar ni igång ert program
+
 });
 
 
@@ -24,7 +25,6 @@ function initPage() {
             //initContent();
             prepGame();       
         }
-    }); // Added missing closing parenthesis
 }
 
 
@@ -84,6 +84,7 @@ function validateForm(){
         return false; // Return false if any validation fails
     }
    
+
 };
 
 
@@ -100,9 +101,11 @@ function randomNumberOfGhosts(min, max) {
 
 
 
+
 // I funtionen randomPosition() tilldelar vi x och y resultatet av Math.round(Math.random) osv 
 // för att få slumpade x och y kordinater inom fönstrets bredd och höjd.
 function randomPosition() {
+
     const x = oGameData.left();
     const y = oGameData.top();
     return { 
@@ -114,10 +117,12 @@ function randomPosition() {
 
 
 
+
 // Denna funktionen tar två argument min och max och och använder sig av randomNumberOfGhosts()
 // för att få fram ett slumpat antal spöken
 function generateGhosts(min, max) {
     const numberOfGhosts = randomNumberOfGhosts(min, max);
+
     console.log("Number of ghosts:", numberOfGhosts); // Log number of ghosts
     const gameArea = document.querySelector('#gameArea');
     const ghostImages = [];
@@ -210,6 +215,7 @@ function prepGame(){
     
     
 }
+
 
 
 

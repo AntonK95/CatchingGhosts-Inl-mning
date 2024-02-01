@@ -27,9 +27,6 @@ För att få godkänt...
   * Er dev-branch får bara innehålla färdiga funktioner
   * Era feature-brancher är de brancher ni programmerar i, när en feature är färdig pushar ni till Github och mergar till dev
 
-### Gruppkontrakt
-Innan ni sätter er ner och börjar arbeta MÅSTE ni skriva ett gruppkontrakt som skickas till mig per mail (jesper.nyberg@zocom.se). Instruktioner för gruppkontraktet [hittar ni här](https://docs.google.com/document/d/1DpGKbG18wz1c-sMUJqIZ0qB6L7GedNwO/edit). Precis som i förra kursen behöver ni endast svara på frågorna, samt lägga till egna frågor om ni kommer på något relevant. 
-
 ### Inlämning
 Inlämning skre senast kl 23:59, torsdagen den 8 februari på Azomo. Varje gruppmedlem lämnar separat in en länk till ert gemensamma repo.
 
