@@ -23,8 +23,9 @@ function initPage() {
         if (validateForm()) {
             //toggleDisplay(3); 
             //initContent();
-            prepGame();       
-        }
+            prepGame(); 
+        }      
+    });
 }
 
 
