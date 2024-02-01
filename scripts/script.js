@@ -199,7 +199,7 @@ function checkIfGameOver() {
 CheckIfGameOver is called inside the generateGhost function*/
 
 function prepGame(){
-    // Hide formFiv and show gameArea
+    // Hide formDiv and show gameArea
     document.querySelector('#formDiv').classList.add('d-none');
     document.querySelector('#gameArea').classList.remove('d-none');
     console.log('formulär borttaget, visa spelplan');
