@@ -3,7 +3,7 @@
 ## Introduktion
 Våren nalkas och det börjar bli ljusare ute. Men innan vi helt kan räkna hem våren i och med ljusets ankomst har ni, våra alldeles egna Ghostbusters, kallats in för att fånga in de sista spökena som fortfarande närs av vinterns mörka anlete.
 
-## Instruktioner
+## Instruktioner....
 
 ### Uppgift
 Ni skall använda er av de kunskaper som ni hittills förskaffat er, för att bygga ett spel som helt enkelt går ut på att fånga spöken. Vid ankomst till sidan ställs användaren inför ett inloggningsformulär, och det är först vid lyckad inloggning som spelet startar. Vid spelstart skall ni ladda upp ett slumpat antal spöken (mellan 10-15 stycken) på skärmen.
