@@ -16,9 +16,9 @@ function initPage() {
         console.log(user);
     });
 
-    const loginBtn = document.querySelector('#spela');
+    const playBtn = document.querySelector('#spela');
     
-    loginBtn.addEventListener('click', (event) => {
+    playBtn.addEventListener('click', (event) => {
         event.preventDefault();
         if (validateForm()) {
             prepGame(); 
