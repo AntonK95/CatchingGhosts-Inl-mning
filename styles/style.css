@@ -14,6 +14,32 @@ img {
 /* Koden ovanför är obligatorisk. Ereventuella CSS skriver ni nedanför denna kommentar */
 
 
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#formDiv {
+    border: solid 2px grey;
+    padding: 1rem;
+    border-radius: 0.2rem;
+    box-shadow: 10px 10px
+}
+
+#spela {
+    padding: .2rem .5rem;
+    border-radius: .2rem;
+    transition: .3s ease-in-out;
+}
+
+#spela:hover {
+    padding: .5rem 1rem;
+    background-color: rgb(9, 129, 9);
+    color: white;
+}
+
 #gameArea{
     background-color: rgb(136, 136, 136);
     height: 100vh;
