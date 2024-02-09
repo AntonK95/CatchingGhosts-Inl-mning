@@ -20,3 +20,4 @@ let users = [
         username: 'Erik',
         password: 'istheverybest'
     },
+];
